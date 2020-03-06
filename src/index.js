@@ -1,40 +1,35 @@
-const NUMS = {
-    0: 'zero', 1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five',
-    6: 'six', 7: 'seven', 8: 'eight', 9: 'nine', 10: 'ten',
-    11: 'eleven', 12: 'twelve', 13: 'thirteen', 14: 'fourteen',
-    15: 'fifteen', 16: 'sixteen', 17: 'seventeen', 18: 'eighteen',
-    19: 'nineteen', 20: 'twenty', 30: 'thirty', 40: 'forty',
-    50: 'fifty', 60: 'sixty', 70: 'seventy', 80: 'eighty',
-    90: 'ninety', 100: 'hundred'
-   
-};
+module.exports = function toReadable(number){
 
-module.exports = function toReadable(number) {
-    let str = number + '';
-    let lengthOfNumber = str.length;
-    let result = [];
+	const FIRST = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+	const SECOND = ['ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
+	const THIRD = ['twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
 
-    if (lengthOfNumber === 1 || number <= 20) {
-        result.push(NUMS[number]);
+	let res = [];
+	if (number >= 100) {
+		let num = Math.floor(number / 100);
+		if (big >= 1) {
+			res.push(FIRST[num]);
+		}
+		res.push('hundred');
+		number %= 100;
+	}
+	if (number >= 20) {
+		let num = Math.floor(number / 10);
+		res.push(THIRD[num]);
+		number %= 10;
+	}
+
+	if (number >= 10) {
+		let num = number % 10;
+		res.push(SECOND[num]);
+		number %= 10;
+	} else if (number > 0) {
+		res.push(FIRST[number]);
+    }
+    
+    if(number === 1){
+        return 'zero'
     }
 
-    if (lengthOfNumber === 2 && number > 20) {
-        result.push(NUMS[str[0] + '0']);
-
-        if (number % 10) {
-            result.push(NUMS[str[1]]);
-        }
-    }
-
-    if (lengthOfNumber === 3) {
-        result.push(NUMBS[str[0]]);
-        result.push(NUMBS['100']);
-
-        if (number % 100) {
-            number = number % 100;
-            str = number + '';
-            lengthOfNumber = str.length;
-        }
-    }
-    return result.join(' ');
+	return (res.join(' '));
 }
