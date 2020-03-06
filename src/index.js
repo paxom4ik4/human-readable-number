@@ -1,35 +1,36 @@
-module.exports = function toReadable(number){
-
-	const FIRST = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
-	const SECOND = ['ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
-	const THIRD = ['twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
-
-	let res = [];
-	if (number >= 100) {
-		let num = Math.floor(number / 100);
-		if (big >= 1) {
-			res.push(FIRST[num]);
-		}
-		res.push('hundred');
-		number %= 100;
-	}
-	if (number >= 20) {
-		let num = Math.floor(number / 10);
-		res.push(THIRD[num]);
-		number %= 10;
-	}
-
-	if (number >= 10) {
-		let num = number % 10;
-		res.push(SECOND[num]);
-		number %= 10;
-	} else if (number > 0) {
-		res.push(FIRST[number]);
-    }
+module.exports = function toReadable (number) {
     
-    if(number === 1){
-        return 'zero'
-    }
+    let first = ["","one","two","three","four","five","six","seven","eight","nine","ten",
+                "eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen",
+                "eighteen","nineteen"];
+    let second = ["","","twenty","thirty","forty","fifty","sixty","seventy","eighty","ninety"];
+  
+    if (number == 0) return "zero";
 
-	return (res.join(' '));
-}
+    if (number <= 19) return first[number];
+    else {
+        let numString = String(number);
+        let result;
+        switch (numString.length) {
+            case 2:{
+                result = second[numString[0]] +" "+ first[numString[1]];
+                break;
+            }
+            case 3: {
+                result = first[numString[0]] + " hundred ";
+                if (numString[1] == "1") {
+                    result += first[numString.slice(1)];
+                }
+                else {
+                  if (numString[1] == "0") {
+                    result += first[numString[2]];
+                  } else
+                     result += second[numString[1]] + " " + first[numString[2]]; 
+              }
+                break;
+            }
+        }
+      return result.trim();
+    }
+  }
+  
