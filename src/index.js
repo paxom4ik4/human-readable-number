@@ -34,7 +34,7 @@ module.exports = function toReadable(number) {
         "ninety",
     ];
 
-    if (number === 0) "zero";
+    if (number == 0) "zero";
 
     if (number <= 19) first[number];
     else {
