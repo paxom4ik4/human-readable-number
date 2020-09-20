@@ -33,10 +33,8 @@ module.exports = function toReadable(number) {
         "eighty",
         "ninety",
     ];
-
-    if (number == 0) "zero";
-
-    if (number <= 19) first[number];
+    if (number === 0) return "zero";
+    if (number <= 19) return first[number];
     else {
         let numString = String(number);
         let result;
@@ -62,4 +60,3 @@ module.exports = function toReadable(number) {
         return result.trim();
     }
 };
-
